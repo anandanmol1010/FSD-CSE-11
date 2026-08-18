@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Fetch</title>
+</head>
+
+<body>
+
+    <h1>
+        <center>List of Products</center>
+    </h1>
+
+    <div style="margin: 15px 0;">
+        <label><input type="radio" name="currency" class="currency-checkbox" value="USD" checked> USD</label>
+        <label><input type="radio" name="currency" class="currency-checkbox" value="INR"> INR</label>
+        <label><input type="radio" name="currency" class="currency-checkbox" value="EUR"> EUR</label>
+        <label><input type="radio" name="currency" class="currency-checkbox" value="GBP"> GBP</label>
+    </div>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="data">
+        </tbody>
+    </table>
+
+
+    <script>
+        const currencyRates = {
+            USD: 1,
+            INR: 83.5,
+            EUR: 0.92,
+            GBP: 0.79
+        };
+
+        let products = [];
+
+        function getSelectedCurrencies() {
+            const selected = document.querySelector('.currency-checkbox:checked');
+            return selected ? [selected.value] : ['USD'];
+        }
+
+        function formatPrice(value, currency) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: currency,
+                maximumFractionDigits: 2
+            }).format(value);
+        }
+
+        function renderProducts() {
+            const selectedCurrency = getSelectedCurrencies()[0];
+
+            const rows = products.map((i, index) => {
+                const converted = i.price * currencyRates[selectedCurrency];
+                const priceText = formatPrice(converted, selectedCurrency);
+
+                return `<tr>
+                    <td>${index + 1}</td>
+                    <td>${i.title}</td>
+                    <td><img src="${i.thumbnail}" alt="${i.title}" width="60" height="60"></td>
+                    <td>${i.category}</td>
+                    <td>${priceText}</td>
+                    <td>${i.stock}</td>
+                    <td>
+                        <button>Add to Cart</button>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            document.getElementById('data').innerHTML = rows;
+        }
+
+        async function loadProduct() {
+
+            const URL = "https://dummyjson.com/products?limit=100&skip=5";
+
+            try {
+
+                const res = await fetch(URL);
+                const data = await res.json();
+                products = data.products;
+                renderProducts();
+
+            } catch (error) {
+
+                console.log("error=", error);
+
+            }
+        }
+
+        document.querySelectorAll('.currency-checkbox').forEach(box => {
+            box.addEventListener('change', renderProducts);
+        });
+
+        loadProduct();
+
+    </script>
+
+</body>
+</html>

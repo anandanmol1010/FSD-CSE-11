@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<body>
+    <h1>Job Application Form</h1>
+    <fieldset style="width: 500px; padding: 20px; border: 2px solid #000;">
+        <legend style="font-weight: bold;">Fill Application Form</legend>
+        <form action="submit-form.php" method="post">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="password">Create Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br><br>
+            
+            <label for="gender">Gender:</label>
+            <input type="radio" id="male" name="gender" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female" required>
+            <label for="female">Female</label><br><br>
+            
+            <label for="qualification">Highest Qualification:</label>
+            <select id="qualification" name="qualification" required>
+                <option value="">Select a qualification</option>
+                <option value="high_school">High School</option>
+                <option value="bachelor">Bachelor's Degree</option>
+                <option value="master">Master's Degree</option>
+                <option value="phd">PhD</option>
+            </select><br><br>
+
+            <label for="skills">Technical Skills:</label><br>
+            <input type="radio" id="python" name="skills" value="python" required>
+            <label for="python">Python</label>
+            <input type="radio" id="java" name="skills" value="java" required>
+            <label for="java">Java</label>
+            <input type="radio" id="javascript" name="skills" value="javascript" required>
+            <label for="javascript">JavaScript</label><br><br>
+
+            <label for="resume">Upload Resume:</label><br>
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required><br><br>
+
+            <label for="why_hire">Why should we hire you?</label><br>
+            <textarea id="why_hire" name="why_hire" rows="4" cols="50" required></textarea><br><br>
+
+            <input type="submit" value="Apply Now">
+            <input type="reset" value="Reset Form">
+        </form>
+    </fieldset>
+</body>
+</html>
